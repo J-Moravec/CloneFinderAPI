@@ -1,24 +1,28 @@
-from setuptools import setup, find_packages
+import setuptools
 
-setup (
-       name='CloneFinderAPI',
-       version='0.1',
-       packages=find_packages(),
+with open("README.txt", "r", encoding="utf-8") as f:
+    long_description = f.read()
 
-       # Declare your packages' dependencies here, for eg:
-       install_requires=['foo>=3'],
+setuptools.setup(
+    name='CloneFinderAPI',
+    version="0.1",
 
-       # Fill in these to make your Egg ready for upload to
-       # PyPI
-       author='Sayaka Miura',
-       author_email='tuf78332@temple.edu',
+    author='Sayaka Miura',
+    author_email='tuf78332@temple.edu',
 
-       #summary = 'Just another Python package for the cheese shop',
-       url='',
-       license='',
-       long_description='Long description of the package',
+    description='Estimate clone genotypes and frequencies within a tumor sample using a phylogenetic approach.',
+    long_description=long_description,
+    long_description_content_type='text/plain',
+    url='https://github.com/gstecher/CloneFinderAPI',
 
-       # could also include long_description, download_url, classifiers, etc.
+    classifiers=[
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        ],
 
-  
-       )
+    python_requires='>=3',
+    install_requires=['numpy', 'scipy', 'biopython'],
+
+    packages=setuptools.find_packages(),
+    )

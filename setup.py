@@ -23,6 +23,11 @@ setuptools.setup(
 
     python_requires='>=3',
     install_requires=['numpy', 'scipy', 'biopython'],
+    packages = setuptools.find_packages(),
 
-    packages=setuptools.find_packages(),
+    entry_points = {
+        'console_scripts' : [
+            'clonefinder = clonefinder:clonefinder',
+            ],
+        },
     )

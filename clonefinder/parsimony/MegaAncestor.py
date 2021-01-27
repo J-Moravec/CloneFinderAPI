@@ -1,7 +1,7 @@
 
-from parsers.ancestorParser_ML import ancestorParser_ML
-from parsers.nodeMapParser import nodeMapParser
-from alignments.MegaAlignment import MegaAlignment
+from clonefinder.parsers.ancestorParser_ML import ancestorParser_ML
+from clonefinder.parsers.nodeMapParser import nodeMapParser
+from clonefinder.alignments.MegaAlignment import MegaAlignment
 import os
 import tempfile
 

@@ -3,21 +3,21 @@ import os
 import sys
 import datetime
 import argparse
-from parsers.DefaultTSPParser import DefaultTSPParser
-from parsers.DefaultCNVarser import DefaultCNVarser
-from regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
-from decomposition.SNPGroupCombiner_cnv1 import SNPGroupCombiner_cnv1
-from config.ParamsLoader import ParamsLoader
-from config.FormatInput import FormatInput
-from alignments.FreqToMegaSeq import FreqToMegaSeq
-from alignments.MegaAlignment import MegaAlignment
-from parsimony.MegaMP import MegaMP
-from parsimony.TreeAnalizer import TreeAnalizer
-from parsimony.MegaAncestor import MegaAncestor
-from tsp_profiles.tsp_information import tsp_information
-from significance_test.cluster_test import cluster_test
-from output.CloneFrequencyAnalizer import CloneFrequencyAnalizer
-from output.OutputWrite import OutputWrite
+from .parsers.DefaultTSPParser import DefaultTSPParser
+from .parsers.DefaultCNVarser import DefaultCNVarser
+from .regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
+from .decomposition.SNPGroupCombiner_cnv1 import SNPGroupCombiner_cnv1
+from .config.ParamsLoader import ParamsLoader
+from .config.FormatInput import FormatInput
+from .alignments.FreqToMegaSeq import FreqToMegaSeq
+from .alignments.MegaAlignment import MegaAlignment
+from .parsimony.MegaMP import MegaMP
+from .parsimony.TreeAnalizer import TreeAnalizer
+from .parsimony.MegaAncestor import MegaAncestor
+from .tsp_profiles.tsp_information import tsp_information
+from .significance_test.cluster_test import cluster_test
+from .output.CloneFrequencyAnalizer import CloneFrequencyAnalizer
+from .output.OutputWrite import OutputWrite
 
 # Not used as ParamsLoader parse args instead.
 # Please, refactor the loader and use this function instead to parse args.

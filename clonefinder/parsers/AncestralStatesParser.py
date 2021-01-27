@@ -1,5 +1,5 @@
-from alignments.AncestralState import AncestralState
-from alignments.AncestralStatesList import AncestralStatesList
+from clonefinder.alignments.AncestralState import AncestralState
+from clonefinder.alignments.AncestralStatesList import AncestralStatesList
 import os.path
 import traceback
 

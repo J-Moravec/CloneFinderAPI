@@ -1,4 +1,4 @@
-from alignments.MegaAlignment import MegaAlignment
+from clonefinder.alignments.MegaAlignment import MegaAlignment
 
 class MakeAncSeqMPMin(object):
     

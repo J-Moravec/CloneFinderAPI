@@ -1,4 +1,4 @@
-from config.CloneFinderParams import CloneFinderParams
+from clonefinder.config.CloneFinderParams import CloneFinderParams
 import configparser
 import os.path
 

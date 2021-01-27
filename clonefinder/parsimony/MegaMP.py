@@ -1,7 +1,7 @@
 
-from parsers.AncestralStatesParser import AncestralStatesParser
-from .MakeAncSeqMPMin import MakeAncSeqMPMin
-from alignments.MegaAlignment import MegaAlignment
+from clonefinder.parsers.AncestralStatesParser import AncestralStatesParser
+from clonefinder.parsimony.MakeAncSeqMPMin import MakeAncSeqMPMin
+from clonefinder.alignments.MegaAlignment import MegaAlignment
 import os
 import tempfile
 

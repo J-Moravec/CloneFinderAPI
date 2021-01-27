@@ -1,5 +1,5 @@
-from tsp_profiles.TumorSampleProfileList import TumorSampleProfileList
-from tsp_profiles.TumorSampleProfile import TumorSampleProfile
+from clonefinder.tsp_profiles.TumorSampleProfileList import TumorSampleProfileList
+from clonefinder.tsp_profiles.TumorSampleProfile import TumorSampleProfile
 
 
 

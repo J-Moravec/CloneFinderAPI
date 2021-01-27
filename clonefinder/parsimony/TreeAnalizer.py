@@ -1,9 +1,9 @@
-from parsimony.MegaMP import MegaMP
+from clonefinder.parsimony.MegaMP import MegaMP
 from Bio import Phylo
 import os
-from parsers.nodeMapParser import nodeMapParser
-from alignments.MegaAlignment import MegaAlignment
-from parsimony.MegaAncestor import MegaAncestor
+from clonefinder.parsers.nodeMapParser import nodeMapParser
+from clonefinder.alignments.MegaAlignment import MegaAlignment
+from clonefinder.parsimony.MegaAncestor import MegaAncestor
 import os
 import tempfile
 

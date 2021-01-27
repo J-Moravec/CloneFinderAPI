@@ -1,5 +1,5 @@
-from alignments.MegaAlignment import MegaAlignment
-from output.CloneFrequencyAnalizer import CloneFrequencyAnalizer
+from clonefinder.alignments.MegaAlignment import MegaAlignment
+from clonefinder.output.CloneFrequencyAnalizer import CloneFrequencyAnalizer
 
 class OutputWrite():
     def GetOut(self, OutFileName, In):

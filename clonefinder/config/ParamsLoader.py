@@ -1,8 +1,8 @@
-from config.CloneFinderParams import CloneFinderParams
-from parsers.ParamsParser import ParamsParser
+from clonefinder.config.CloneFinderParams import CloneFinderParams
+from clonefinder.parsers.ParamsParser import ParamsParser
 import os.path
 import sys
-from config.FormatInput import FormatInput
+from clonefinder.config.FormatInput import FormatInput
 clone_finder_params = None # used as a global instance of the params object
 
 class ParamsLoader(object):

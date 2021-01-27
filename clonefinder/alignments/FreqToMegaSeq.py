@@ -1,4 +1,4 @@
-from tsp_profiles.TumorSampleProfileList import TumorSampleProfileList
+from clonefinder.tsp_profiles.TumorSampleProfileList import TumorSampleProfileList
 
 class FreqToMegaSeq:
     """

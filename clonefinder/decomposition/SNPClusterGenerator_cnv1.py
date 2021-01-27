@@ -1,5 +1,5 @@
-from alignments.MegaAlignment import MegaAlignment
-from regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
+from clonefinder.alignments.MegaAlignment import MegaAlignment
+from clonefinder.regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
 from scipy import stats
 import numpy
 

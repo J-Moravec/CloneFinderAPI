@@ -1,5 +1,5 @@
 
-from alignments.MegaAlignment import MegaAlignment
+from clonefinder.alignments.MegaAlignment import MegaAlignment
 import scipy
 import os
 import sys

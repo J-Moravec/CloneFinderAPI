@@ -1,7 +1,7 @@
-from alignments.MegaAlignment import MegaAlignment
-from decomposition.SNPClusterGenerator_cnv1 import SNPClusterGenerator_cnv1
-from regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
-from alignments.FreqToMegaSeq import FreqToMegaSeq
+from clonefinder.alignments.MegaAlignment import MegaAlignment
+from clonefinder.decomposition.SNPClusterGenerator_cnv1 import SNPClusterGenerator_cnv1
+from clonefinder.regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
+from clonefinder.alignments.FreqToMegaSeq import FreqToMegaSeq
 import copy
 class SNPGroupCombiner_cnv1():
     

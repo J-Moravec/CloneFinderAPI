@@ -1,6 +1,6 @@
-from parsers.AbstractTSPParser import AbstractTSPParser
-from tsp_profiles.TumorSampleProfile import TumorSampleProfile
-from tsp_profiles.ReadCount import ReadCount
+from clonefinder.parsers.AbstractTSPParser import AbstractTSPParser
+from clonefinder.tsp_profiles.TumorSampleProfile import TumorSampleProfile
+from clonefinder.tsp_profiles.ReadCount import ReadCount
 import os.path
 
 class DefaultCNVarser():

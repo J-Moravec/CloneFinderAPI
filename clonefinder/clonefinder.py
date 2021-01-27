@@ -1,13 +1,11 @@
 # 'python CloneFinder.py snv [snv_input]'
 import os
-import sys
 import datetime
 import argparse
 from .parsers.DefaultTSPParser import DefaultTSPParser
 from .parsers.DefaultCNVarser import DefaultCNVarser
 from .regression.CloneFrequencyComputer_cnv1 import CloneFrequencyComputer_cnv1
 from .decomposition.SNPGroupCombiner_cnv1 import SNPGroupCombiner_cnv1
-from .config.ParamsLoader import ParamsLoader
 from .config.FormatInput import FormatInput
 from .alignments.FreqToMegaSeq import FreqToMegaSeq
 from .alignments.MegaAlignment import MegaAlignment
@@ -19,45 +17,48 @@ from .significance_test.cluster_test import cluster_test
 from .output.CloneFrequencyAnalizer import CloneFrequencyAnalizer
 from .output.OutputWrite import OutputWrite
 
-# Not used as ParamsLoader parse args instead.
-# Please, refactor the loader and use this function instead to parse args.
+#TODO: Please, write a detailed description for what parameters do.
 def parse_args():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(
         description=("Estimate clone genotypes and frequencies within a tumor sample",
                      " using a phylogenetic approach."))
-    parser.add_argument("input", type=str,
+    parser.add_argument("snv", type=str,
                         help="Input file with Single Nucleotide Variatns (see examples)")
+    parser.add_argument("--frequency", type=float, default=0.02,
+                        help="Frequency cutoff")
+    parser.add_argument("--significant", type=float, default=0.05,
+                        help="Significant cutoff")
+    parser.add_argument("--total_read_cut", type=int, default=50,
+                        help="Total read count cutoff")
+    parser.add_argument("--mutant_read_cut", type=int, default=2,
+                        help="Mutant read count cutoff")
     args = parser.parse_args()
     return args
 
 
 def main():
+    """Run clonefinder with command-line arguments"""
     args = parse_args()
-    clonefinder(args.input)
+    clonefinder(**vars(args))
 
 
-def clonefinder():
-    significant_cutoff = 0.05
+def clonefinder(snv, frequency=0.02, significant=0.05, total_read_cut=50, mutant_read_cut=2):
+    """Clonefinder"""
+    input_id = "inputsnv"
     startTime = datetime.datetime.now()
     print(startTime)
     dir = os.getcwd()
     tree_builder = MegaMP()
     tree_builder.mao_file = dir + '/infer_MP_nucleotide.mao'
-    try:
-        loader = ParamsLoader()
-        loader.params_file = 'options.ini' #options_file
-        params = loader.load_params()
-        total_read_cut = params.total_read_cut
-        mutant_read_cut = params.mutant_read_cut
-        summary_file = (f"input data file: {params.input_data_file}\n"
-                        f"total read count cutoff: {params.total_read_cut}\n"
-                        f"mutant read count cutoff: {params.mutant_read_cut}\n"
-                        f"clone frequency cutoff: {params.freq_cutoff}\n\n")
-    except:
-        print('Errors in options.ini')
+
+    summary_file = (f"input data file: {snv}\n"
+                    f"total read count cutoff: {total_read_cut}\n"
+                    f"mutant read count cutoff: {mutant_read_cut}\n"
+                    f"clone frequency cutoff: {frequency}\n\n")
+
     parser = DefaultTSPParser()
-    parser.input_data_file = params.input_data_file
+    parser.input_data_file = snv
     parser_cnv = DefaultCNVarser()
     AnalyzeTree = TreeAnalizer()
     OutFile = OutputWrite()
@@ -70,7 +71,7 @@ def clonefinder():
         print(parser.messages)
     else:
         tsp_list = parser.get_tumor_sample_profile_list()
-        CNV_information = parser_cnv.get_tumor_cnv_profile(params.cnv_data_file)
+        CNV_information = parser_cnv.get_tumor_cnv_profile("")
         original_align_builder = FreqToMegaSeq()
         #True to remove duplicates; False to keep duplicates -- this should be parameter!
         original_align_builder.initialize(tsp_list, True)
@@ -103,7 +104,7 @@ def clonefinder():
                 clone_frequency_cnv = CloneFrequencyComputer_cnv1(
                     seqs_with_ancestor,
                     v_obs, CNV_information_test,
-                    params.freq_cutoff)
+                    frequency)
                 clone_frequency_cnv.regress_cnv()
                 print('decompose incorrect candidate clone genotypes')
                 decomposition = SNPGroupCombiner_cnv1(
@@ -111,7 +112,7 @@ def clonefinder():
                     v_obs,
                     clone_frequency_cnv.Tumor2Clone_frequency,
                     CNV_information,
-                    params.freq_cutoff,
+                    frequency,
                     tumor_seqs)
                 hit_seq_dic, Message = decomposition.get_decomposed_seq()
                 print(Message)
@@ -137,7 +138,7 @@ def clonefinder():
                             decomseqs_with_ancestor,
                             v_obs,
                             CNV_information_test,
-                            params.freq_cutoff
+                            frequency
                             )
                         clone_frequency_cnv2.regress_cnv()
                         decomseqs_with_ancestor_clone_freq =  \
@@ -170,15 +171,15 @@ def clonefinder():
                 final_clone_frequency1,
                 final_seq1,
                 CNV_information_test,
-                significant_cutoff)
+                significant)
             print('making output files')
 
             final_seq1, final_clone_frequency1, final_clone_order1 = \
                 OutFile.ReNameCloFreMeg(final_seq, final_clofre, 'number')
 
-            Align.save_mega_alignment_to_file(params.input_id + '_CloneFinder.meg', final_seq1)
+            Align.save_mega_alignment_to_file(input_id + '_CloneFinder.meg', final_seq1)
             CloFreAna.save_frequency_table_to_file(
-                params.input_id + '_CloneFinder.txt',
+                input_id + '_CloneFinder.txt',
                 final_clone_frequency1,
                 [])
 
@@ -195,13 +196,13 @@ def clonefinder():
                     InferAncestor.retrieve_ancestor_states()
                 RescaledTree = InferAncestor.get_scaledNWK()
                 OutFile.GetOut(
-                    params.input_id + '_CloneFinder.nwk',
+                    input_id + '_CloneFinder.nwk',
                     RescaledTree.replace('hg19:', 'Normal:'))
 
-    os.remove(params.input_id + '.txt')
-    os.remove(params.input_id + '-CNV.txt')
+    os.remove(input_id + '.txt')
+    os.remove(input_id + '-CNV.txt')
 
-    timeFile = params.input_id + '_summary.txt'
+    timeFile = input_id + '_summary.txt'
     endTime = datetime.datetime.now()
     print(endTime)
     totalTime = (endTime - startTime)
@@ -210,7 +211,3 @@ def clonefinder():
     OutTime = open(timeFile, 'w')
     OutTime.write(summary_file)
     OutTime.close()
-
-
-if __name__ == "__main__":
-    clonefinder()

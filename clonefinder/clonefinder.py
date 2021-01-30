@@ -198,10 +198,8 @@ def clonefinder(snv, frequency=0.02, significant=0.05, total_read_cut=50, mutant
                 OutFile.GetOut(
                     input_id + '_CloneFinder.nwk',
                     RescaledTree.replace('hg19:', 'Normal:'))
-
-    os.remove(input_id + '.txt')
-    os.remove(input_id + '-CNV.txt')
-
+#    os.remove(input_id + '.txt')
+#    os.remove(input_id + '-CNV.txt')
     timeFile = input_id + '_summary.txt'
     endTime = datetime.datetime.now()
     print(endTime)
